@@ -10,6 +10,8 @@ class RNNModel(nn.Module):
         self.fc = nn.Linear(hidden_size, output_size)
 
     def forward(self, x):
+        # x shape: (batch_size, seq_len, input_size)
         out, (hn, cn) = self.lstm(x)
-        out = self.fc(out)  # Use the final time step's output
+        # Son zaman adımının çıktısını kullan
+        out = self.fc(out[:, -1, :])
         return out

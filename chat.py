@@ -110,11 +110,19 @@ def centres():
         distance = R * c
         return distance
 
+    # GÜNCELLENMIŞ BÖLÜM: İstanbul koordinatlarını kullan
     # Get your current location based on your IP address
     location = geocoder.ip('me')
-
-    # Given location (latitude and longitude)
-    given_location = location.latlng  # Replace with your desired location
+    
+    # İstanbul koordinatları (varsayılan olarak)
+    # Eğer IP bazlı konum bulunamazsa veya test için İstanbul'u kullan
+    if location.latlng:
+        given_location = location.latlng
+        print(f"Tespit edilen konum: {given_location}")
+    else:
+        # İstanbul, Türkiye koordinatları (Taksim civarı)
+        given_location = [41.0082, 28.9784]
+        print(f"Varsayılan konum kullanılıyor: İstanbul {given_location}")
 
     # Load the JSON data
     with open("medical_centers.json", "r") as json_file:
